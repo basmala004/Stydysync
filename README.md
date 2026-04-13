@@ -1,0 +1,2 @@
+# Stydysync
+Study planner application

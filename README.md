@@ -1,3 +1,4 @@
+
 # Studysync 📚
 
 **Studysync** is a student-centric task organization mobile application designed to help learners manage their academic workload with ease. By combining subject-based organization with visual progress tracking, Studysync turns a daunting "to-do" list into a manageable, rewarding journey.
@@ -17,9 +18,12 @@ Managing multiple subjects and deadlines can be overwhelming. **Studysync** solv
 - **Clean Branding:** A focused color palette (`#547792` slate blue) designed to reduce academic stress and improve focus.
 
 ---
+## 2. Design link
+https://www.figma.com/design/A5Ne1BBOZmonVjMsAM9Iye/Studysync?node-id=3-2&t=rsYQ3SRqQ1nDqhom-1
+---
+## 3. Animation Showcase
 
-## 2. Animation Showcase
-
+https://github.com/user-attachments/assets/a54b6a47-228c-4695-ae19-875d9bfc7fe3
 
 ### App Walkthrough
 

@@ -25,6 +25,9 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: PageView(
         controller: _pageController,
@@ -36,7 +39,7 @@ class _HomeState extends State<Home> {
         notchColor: Colors.white,
         elevation: 1,
         showLabel: false,
-        bottomBarWidth: 500,
+        bottomBarWidth: w,
         bottomBarItems: [
           BottomBarItem(
             inActiveItem: Icon(

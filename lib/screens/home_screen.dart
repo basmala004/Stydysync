@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../wedgits/task_Item.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -16,13 +18,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        // title: Text(
-        //     'Studysync',
-        //     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black,) ,
-        //   textAlign: TextAlign.center,),
+        title: Text(
+            'Studysync',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black,) ,
+          ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
-          padding:  EdgeInsets.symmetric(horizontal: 24.0),
+          padding:  EdgeInsets.symmetric(horizontal: h*(25/h)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -79,52 +82,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                _buildTaskItem('Math', 'Complete Calculus Assignment', '15/4/2026', h,w),
-                _buildTaskItem('Chemistry', 'Revise Chapter 1', '15/4/2026',h, w),
-                _buildTaskItem('Physics', 'Lab Report', '16/4/2026',h,w),
-                ]),
+                    TaskItem(
+                      subject: 'Math',
+                      title: 'Complete Calculus Assignment',
+                      date: '15/4/2026',
+                      h: h,
+                    ),
+                    TaskItem(
+                      subject: 'Chemistry',
+                      title: 'Revise Chapter 1',
+                      date: '15/4/2026',
+                      h: h,
+                    ),
+                  ]),
               )
               ,SizedBox(height: h*0.025),
             ],
           ),
         ),
 
-    );
-  }
-
-  // Helper widget to build each task row
-  Widget _buildTaskItem(String subject, String title, String date, double h, double w) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: h*(20/h)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            subject,
-            style:  TextStyle(
-              fontSize: 16,
-              color: Color(0xFF547792),
-            ),
-          ),
-          SizedBox(height: h*0.0005),
-          Text(
-            title,
-            style:  TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-          SizedBox(height: h*0.0005),
-          Text(
-            'Due: $date',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey.shade600,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

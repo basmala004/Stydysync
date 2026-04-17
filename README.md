@@ -14,9 +14,7 @@ Managing multiple subjects and deadlines can be overwhelming. **Studysync** solv
 ### Key Features
 - **Interactive Checklists:** Easily mark tasks as complete with a line-through animation.
 - **Progress Tracking:** View completion percentages for specific subjects and overall tasks.
-- **Responsive UI:** Built using Flutter's flexible layout system to ensure compatibility across various screen sizes.
-- **Clean Branding:** A focused color palette (`#547792` slate blue) designed to reduce academic stress and improve focus.
-
+  
 ---
 ## 2. Design link
 https://www.figma.com/design/A5Ne1BBOZmonVjMsAM9Iye/Studysync?node-id=3-2&t=rsYQ3SRqQ1nDqhom-1

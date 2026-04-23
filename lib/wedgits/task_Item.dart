@@ -14,38 +14,46 @@ class TaskItem extends StatelessWidget {
     required this.h,
   });
 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: h * 0.025), // Adjusted for responsiveness
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            subject,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF547792),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              subject,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xFF547792),
+              ),
             ),
-          ),
-          SizedBox(height: h * 0.005),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+            SizedBox(height: h * 0.005),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
             ),
-          ),
-          SizedBox(height: h * 0.005),
-          Text(
-            'Due: $date',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey.shade600,
+            SizedBox(height: h * 0.005),
+            Text(
+              'Due: $date',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey.shade600,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

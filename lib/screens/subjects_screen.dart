@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stydysync/data/repo.dart';
 import 'package:stydysync/screens/subject_details_screen.dart';
-import 'package:stydysync/screens/subject_model.dart';
 
 class SubjectsScreen extends StatefulWidget {
   const SubjectsScreen({super.key});
@@ -11,44 +11,33 @@ class SubjectsScreen extends StatefulWidget {
 }
 
 class _SubjectsScreenState extends State<SubjectsScreen> {
+  final repo = DataRepository();
   @override
   Widget build(BuildContext context) {
-    final List<Subject> subjects = [
-      Subject(name: 'Mathematics', tasks: [
-        {'title': 'Calculus HW', 'date': 'Today', 'isDone': true},
-        {'title': 'Algebra Quiz', 'date': 'Tomorrow', 'isDone': false},
-      ]),
-      Subject(name: 'Physics',  tasks: [
-        {'title': 'ch2 HW', 'date': 'Today', 'isDone': true},
-        {'title': 'ch5 Quiz', 'date': 'Tomorrow', 'isDone': false},]),
-      Subject(name: 'Chemistry',  tasks: [
-        {'title': 'organic HW', 'date': 'Today', 'isDone': true},
-        {'title': 'ch8 Quiz', 'date': 'Tomorrow', 'isDone': false},
-        {'title': 'ch6 rev', 'date': 'Tomorrow', 'isDone': false},
-      ]),
-      Subject(name: 'Biology',  tasks: [
-        {'title': 'ch4 HW', 'date': 'Today', 'isDone': true},
-        {'title': 'ch3, ch5 rev', 'date': 'Tomorrow', 'isDone': false},
-      ]),
-    ];
-
+    final subjects = repo.subjects;
 
     return Scaffold(
-      backgroundColor:  Color(0xFFF8F9FA),
       appBar: AppBar(
         title:  Text("Subjects", style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
-      body: ListView.builder(
+      body:subjects.isEmpty
+          ? const Center(child: Text("No subjects found."))
+          : ListView.builder(
         padding:  EdgeInsets.all(16),
         itemCount: subjects.length,
         itemBuilder: (context, index) {
           final sub = subjects[index];
           return GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SubjectDetailsScreen(subject: sub)),
-            ),
+            onTap:() async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SubjectDetailsScreen(subject: sub),
+                ),
+              );
+              setState(() {});
+            },
             child: Container(
               margin:  EdgeInsets.only(bottom: 16),
               padding:  EdgeInsets.all(20),

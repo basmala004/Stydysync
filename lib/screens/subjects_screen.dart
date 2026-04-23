@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stydysync/data/models.dart';
 import 'package:stydysync/data/repo.dart';
 import 'package:stydysync/screens/subject_details_screen.dart';
 
@@ -12,6 +13,40 @@ class SubjectsScreen extends StatefulWidget {
 
 class _SubjectsScreenState extends State<SubjectsScreen> {
   final repo = DataRepository();
+
+  void _showAddSubjectDialog() {
+    final controller = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Add New Subject"),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(hintText: "Enter subject name"),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (controller.text.isNotEmpty) {
+                setState(() {
+                  repo.addSubject(controller.text);
+                });
+                Navigator.pop(context);
+              }
+            },
+            child: const Text("Add"),
+          ),
+        ],
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final subjects = repo.subjects;
@@ -21,6 +56,11 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
         title:  Text("Subjects", style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color(0xFF4E8D9C),
+          onPressed: _showAddSubjectDialog,
+          child: const Icon(Icons.add, color: Colors.white),
+        ),
       body:subjects.isEmpty
           ? const Center(child: Text("No subjects found."))
           : ListView.builder(
@@ -55,7 +95,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                       Text(sub.name, style:  TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                        SizedBox(height: 4),
                       Text("${sub.tasks.length} tasks",
-                          style:  TextStyle(color: Color(0xFF547792))),
+                          style:  TextStyle(color: Color(0xFF4E8D9C))),
                        SizedBox(height: 15),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
@@ -63,7 +103,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                           value: sub.progress,
                           minHeight: 8,
                           backgroundColor: Colors.white,
-                          color:  Color(0xFF547792),
+                          color:  Color(0xFF4E8D9C),
                         ),
                       ),
                     ],

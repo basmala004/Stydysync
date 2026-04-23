@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:stydysync/data/repo.dart';
 import 'package:stydysync/wedgits/task_item_common.dart';
 
-import '../wedgits/task_Item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

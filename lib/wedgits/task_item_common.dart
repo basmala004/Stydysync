@@ -25,10 +25,10 @@ class TaskItemCommon extends StatelessWidget {
         curve: Curves.easeInOut,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: isCompleted ? Colors.green.shade50 : Colors.white,
+          color: isCompleted ? Color(0x7B4E8D9C): Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isCompleted ? Colors.green.shade200 : Colors.black.withOpacity(0.05),
+            color: isCompleted ? Color(0xFF4E8D9C): Colors.black.withOpacity(0.05),
           )
         ),
             child: Row(

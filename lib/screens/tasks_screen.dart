@@ -84,14 +84,14 @@ class _TasksScreenState extends State<TasksScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF547792),
+                    backgroundColor: const Color(0xFF4E8D9C),
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 15),
                   ),
                   onPressed: () {
                     if (_titleController.text.isNotEmpty && _dateController.text.isNotEmpty) {
                       setState(() {
-                        repo.allTasks.add(Task(
+                        repo.addTask(Task(
                           id: DateTime.now().toString(),
                           title: _titleController.text,
                           subjectName: _selectedSubject,
@@ -149,7 +149,7 @@ class _TasksScreenState extends State<TasksScreen> {
               value: repo.totalProgress ,
               minHeight: 10,
               backgroundColor: Colors.grey.shade200,
-              color: Color(0xFF547792),
+              color: Color(0xFF4E8D9C),
               borderRadius: BorderRadius.circular(10),
             ),
 
@@ -179,7 +179,7 @@ class _TasksScreenState extends State<TasksScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddTaskSheet,
-        backgroundColor:  Color(0xFF547792),
+        backgroundColor:  Color(0xFF4E8D9C),
         child: Icon(Icons.add, color: Colors.white),
       ),
     );

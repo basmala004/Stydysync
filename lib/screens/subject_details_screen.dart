@@ -75,7 +75,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                 onTap: () => _selectDate(context, setSheetState),
                 decoration: const InputDecoration(
                   labelText: "Due Date",
-                  suffixIcon: Icon(Icons.calendar_month, color: Color(0xFF547792)),
+                  suffixIcon: Icon(Icons.calendar_month, color: Color(0xFF4E8D9C)),
                 ),
               ),
               const SizedBox(height: 25),
@@ -97,7 +97,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                           subjectName: widget.subject.name,
                           date: _dateController.text,
                         );
-                        repo.allTasks.add(newTask);
+                        repo.addTask(newTask);
                       });
                       _titleController.clear();
                       _dateController.clear();
@@ -147,7 +147,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
               value: widget.subject.progress,
               minHeight: 10,
               borderRadius: BorderRadius.circular(10),
-              color:  Color(0xFF547792),
+              color:  Color(0xFF4E8D9C),
               backgroundColor: Colors.grey.shade200,
             ),
              SizedBox(height: 30),
@@ -177,7 +177,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddTaskSheet,
-        backgroundColor: const Color(0xFF547792),
+        backgroundColor: const Color(0xFF4E8D9C),
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

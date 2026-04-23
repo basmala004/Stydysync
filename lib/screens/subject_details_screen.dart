@@ -27,8 +27,8 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Color(0xFF547792),
+            colorScheme:  ColorScheme.light(
+              primary: Color(0xFF4E8D9C),
               onPrimary: Colors.white,
               onSurface: Colors.black,
             ),
@@ -83,7 +83,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF547792),
+                    backgroundColor: const Color(0xFF4E8D9C),
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -118,7 +118,16 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.subject.name, style:  TextStyle(fontWeight: FontWeight.bold)),
+        title: Hero(
+          tag: widget.subject.name,
+          child: Material(
+            color: Colors.transparent,
+            child: Text(
+                widget.subject.name,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)
+            ),
+          ),
+        ),
         centerTitle: true,
       ),
       body: Padding(

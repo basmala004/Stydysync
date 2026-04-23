@@ -33,9 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset("assets/bear.png"),
+              Image.asset("assets/welcome.png"),
 
-              SizedBox(height: h*0.025),
+              SizedBox(height: h*0.005),
 
                Text(
                 'Welcome to Studysync!',
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Let’s study together',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Color(0xFF547792),
+                  color: Color(0xFF4E8D9C),
                 ),
               ),
 

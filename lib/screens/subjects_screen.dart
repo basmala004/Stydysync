@@ -28,41 +28,47 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
         itemCount: subjects.length,
         itemBuilder: (context, index) {
           final sub = subjects[index];
-          return GestureDetector(
-            onTap:() async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SubjectDetailsScreen(subject: sub),
-                ),
-              );
-              setState(() {});
-            },
-            child: Container(
-              margin:  EdgeInsets.only(bottom: 16),
-              padding:  EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color:  Color(0xFFD9E2E8),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(sub.name, style:  TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                   SizedBox(height: 4),
-                  Text("${sub.tasks.length} tasks",
-                      style:  TextStyle(color: Color(0xFF547792))),
-                   SizedBox(height: 15),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: LinearProgressIndicator(
-                      value: sub.progress,
-                      minHeight: 8,
-                      backgroundColor: Colors.white,
-                      color:  Color(0xFF547792),
-                    ),
+          return Hero(
+            tag: sub.name,
+            child: GestureDetector(
+              onTap:() async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SubjectDetailsScreen(subject: sub),
                   ),
-                ],
+                );
+                setState(() {});
+              },
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  margin:  EdgeInsets.only(bottom: 16),
+                  padding:  EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color:  Color(0xFFD9E2E8),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(sub.name, style:  TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                       SizedBox(height: 4),
+                      Text("${sub.tasks.length} tasks",
+                          style:  TextStyle(color: Color(0xFF547792))),
+                       SizedBox(height: 15),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: LinearProgressIndicator(
+                          value: sub.progress,
+                          minHeight: 8,
+                          backgroundColor: Colors.white,
+                          color:  Color(0xFF547792),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           );

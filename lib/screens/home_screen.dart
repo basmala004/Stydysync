@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stydysync/data/repo.dart';
+import 'package:stydysync/wedgits/task_item_common.dart';
 
 import '../wedgits/task_Item.dart';
 
@@ -11,12 +13,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final repo = DataRepository();
+
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
 
-    return Scaffold(
+    final upcomingTasks = repo.allTasks.where((t) => !t.isDone).toList();    return Scaffold(
       appBar: AppBar(
         title: Text(
             'Studysync',
@@ -61,42 +65,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:  Color(0xFF547792),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child:  Text('ADD TASK'),
-                  ),
+
                 ],
               ),
 
               SizedBox(height: h*0.025),
 
-              Container(
-                width: w,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TaskItem(
-                      subject: 'Math',
-                      title: 'Complete Calculus Assignment',
-                      date: '15/4/2026',
-                      h: h,
-                    ),
-                    TaskItem(
-                      subject: 'Chemistry',
-                      title: 'Revise Chapter 1',
-                      date: '15/4/2026',
-                      h: h,
-                    ),
-                  ]),
-              )
-              ,SizedBox(height: h*0.025),
+          SizedBox(
+            width: w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: upcomingTasks.isEmpty
+                  ? [const Center(child: Text("No upcoming tasks!"))]
+                  : upcomingTasks.map((task) => TaskItemCommon(
+                subject: task.subjectName,
+                title: task.title,
+                date: task.date,
+                isCompleted: task.isDone,
+                onChanged: (val) {
+                  setState(() {
+                    task.isDone = val!;
+                  });
+                },
+              )).toList(),
+            ),
+          ),
+              SizedBox(height: h*0.025),
             ],
           ),
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stydysync/screens/subject_model.dart';
+import 'package:intl/intl.dart';
+import 'package:stydysync/data/models.dart';
+import 'package:stydysync/data/repo.dart';
 import 'package:stydysync/wedgits/task_item_common.dart';
 
 class SubjectDetailsScreen extends StatefulWidget {
@@ -12,6 +14,106 @@ class SubjectDetailsScreen extends StatefulWidget {
 }
 
 class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
+  final _titleController = TextEditingController();
+  final _dateController = TextEditingController();
+  final repo = DataRepository();
+
+  Future<void> _selectDate(BuildContext context, StateSetter setSheetState) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2030),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xFF547792),
+              onPrimary: Colors.white,
+              onSurface: Colors.black,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setSheetState(() {
+        _dateController.text = DateFormat('dd/MM/yyyy').format(picked);
+      });
+    }
+  }
+
+  void _showAddTaskSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => StatefulBuilder(
+        builder: (context, setSheetState) => Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+            left: 20, right: 20, top: 20,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text("Add New Task",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 15),
+              TextField(
+                  controller: _titleController,
+                  decoration: const InputDecoration(labelText: "Task Title")
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _dateController,
+                readOnly: true,
+                onTap: () => _selectDate(context, setSheetState),
+                decoration: const InputDecoration(
+                  labelText: "Due Date",
+                  suffixIcon: Icon(Icons.calendar_month, color: Color(0xFF547792)),
+                ),
+              ),
+              const SizedBox(height: 25),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF547792),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  ),
+                  onPressed: () {
+                    if (_titleController.text.isNotEmpty && _dateController.text.isNotEmpty) {
+                      setState(() {
+                        final newTask = Task(
+                          id: DateTime.now().toString(),
+                          title: _titleController.text,
+                          subjectName: widget.subject.name,
+                          date: _dateController.text,
+                        );
+                        repo.allTasks.add(newTask);
+                      });
+                      _titleController.clear();
+                      _dateController.clear();
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: const Text("ADD TASK"),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,12 +151,12 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                   final task = widget.subject.tasks[index];
                   return TaskItemCommon(
                     subject: widget.subject.name,
-                    title: task['title'],
-                    date: task['date'],
-                    isCompleted: task['isDone'],
+                    title: task.title,
+                    date: task.date,
+                    isCompleted: task.isDone,
                     onChanged: (val) {
                       setState(() {
-                        task['isDone'] = val;
+                        task.isDone = val!;
                       });
                     },
                   );
@@ -63,6 +165,11 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _showAddTaskSheet,
+        backgroundColor: const Color(0xFF547792),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
